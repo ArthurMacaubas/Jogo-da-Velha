@@ -1,85 +1,139 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    background-color: #282c34;
+    min-height: 100vh;
     margin: 0;
+    background: linear-gradient(135deg, #1e1e2f 0%, #282c34 100%);
     color: #ffffff;
 }
 
 .container {
     text-align: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.controls button {
+    padding: 10px 15px;
+    font-size: 1em;
+    font-weight: bold;
+    color: #ffffff;
+    background: linear-gradient(45deg, #ff9900, #ff6600);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.controls button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.score {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
 }
 
 .tabuleiro {
     display: grid;
-    grid-template-columns: repeat(3, 120px);
-    grid-template-rows: repeat(3, 120px);
-    gap: 10px;
-    margin-bottom: 20px;
+    grid-template-columns: repeat(3, 100px);
+    grid-template-rows: repeat(3, 100px);
+    gap: 8px;
+    margin: 0 auto 20px;
 }
 
 .cell {
-    width: 120px;
-    height: 120px;
-    background-color: #3c4048;
+    width: 100px;
+    height: 100px;
+    background: #3c4048;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 36px;
+    font-size: 2.5em;
     font-weight: bold;
-    color: #09ff00;
     border-radius: 10px;
-    transition: background-color 0.3s, color 0.3s, transform 0.3s;
     cursor: pointer;
+    transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
 }
 
-.cell-o {
-    width: 120px;
-    height: 120px;
-    background-color: #3c4048;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 36px;
-    font-weight: bold;
-    color: #09ff00;
-    border-radius: 10px;
-    transition: background-color 0.3s, color 0.3s, transform 0.3s;
-    cursor: pointer;
+.cell.x {
+    color: #ff4d4d;
+    background: #4a4e57;
 }
 
-.cell:hover {
-    background-color: #5a5e67;
-    transform: scale(1.1);
+.cell.o {
+    color: #4da8ff;
+    background: #4a4e57;
+}
+
+.cell:hover:not(.x):not(.o) {
+    background: #5a5e67;
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.cell.winner {
+    animation: winner-pulse 1s infinite;
+}
+
+@keyframes winner-pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
 }
 
 .status {
     margin-bottom: 20px;
-    font-size: 24px;
-    color: #9900ff;
-}
-
-.status:empty {
-    visibility: hidden;
+    font-size: 1.5em;
+    font-weight: 500;
+    color: #ffd700;
+    min-height: 30px;
 }
 
 .reset-btn {
-    padding: 10px 20px;
-    font-size: 18px;
+    padding: 12px 24px;
+    font-size: 1.1em;
     font-weight: bold;
     color: #ffffff;
-    background-color: #ff9900;
+    background: linear-gradient(45deg, #ff9900, #ff6600);
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.3s;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 .reset-btn:hover {
-    background-color: #ff0000;
-    transform: scale(1.05);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 400px) {
+    .tabuleiro {
+        grid-template-columns: repeat(3, 80px);
+        grid-template-rows: repeat(3, 80px);
+    }
+    .cell {
+        width: 80px;
+        height: 80px;
+        font-size: 2em;
+    }
+    .reset-btn, .controls button {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
 }
